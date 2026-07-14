@@ -1,2 +1,0 @@
-# dyok
-GOOD
