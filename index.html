@@ -335,6 +335,17 @@
             margin-bottom: 0;
         }
 
+        /* ===== 图片样式（恢复原始 di 类） ===== */
+        .di {
+            width: 100%;
+            max-width: 800px;
+            border-radius: var(--radius-sm);
+            margin: 16px 0;
+            border: 1px solid var(--gray-200);
+            height: auto;
+            display: block;
+        }
+
         /* ===== 网格 ===== */
         .grid-4 {
             display: grid;
@@ -436,7 +447,7 @@
             background: var(--gray-50);
             transition: var(--transition);
             overflow: hidden;
-            contain: layout; /* 提示浏览器优化布局 */
+            contain: layout;
         }
         .accordion:hover {
             border-color: var(--gray-300);
@@ -473,7 +484,6 @@
             transform: rotate(180deg);
         }
 
-        /* 关键：body 只负责 max-height 过渡，padding 由内部容器负责 */
         .accordion-body {
             max-height: 0;
             overflow: hidden;
@@ -481,10 +491,9 @@
             will-change: max-height;
         }
         .accordion.open .accordion-body {
-            max-height: 2000px; /* 足够容纳所有内容 */
+            max-height: 2000px;
         }
 
-        /* 内部内容容器，负责内边距，不影响过渡 */
         .accordion-content {
             padding: 12px 18px 18px;
             color: var(--gray-700);
@@ -673,25 +682,6 @@
         .text-muted {
             color: var(--gray-500);
         }
-
-        /* 图片占位 */
-        .img-placeholder {
-            width: 100%;
-            max-width: 800px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--gray-200);
-            background: var(--gray-100);
-            padding: 40px 20px;
-            text-align: center;
-            color: var(--gray-500);
-            font-size: 0.9rem;
-            margin: 12px 0 4px;
-        }
-        .img-placeholder .icon-big {
-            font-size: 40px;
-            display: block;
-            margin-bottom: 8px;
-        }
     </style>
 </head>
 <body>
@@ -837,10 +827,8 @@
                     </div>
                 </div>
                 <p>一款 <strong>RGB / YUV 混合色键与亮度键</strong> 抠像工具，具备溢色抑制、阴影提取、参考图像校正和高级边缘处理功能。专为绿幕优化，同时也支持蓝幕和其他颜色背景。</p>
-                <div class="img-placeholder">
-                    <span class="icon-big">🖼️</span>
-                    HybridKeyer 界面预览（请将图片放置于 <code>images/HHK_Header.png</code>）
-                </div>
+                <!-- 恢复原始 img 标签和路径 -->
+                <img src="images/HHK_Header.png" alt="HybridKeyer 界面" class="di">
             </div>
 
             <div class="card">
@@ -869,7 +857,7 @@
                     </div>
                 </div>
 
-                <!-- 折叠面板组（每个内部都包裹 .accordion-content） -->
+                <!-- 折叠面板组 -->
                 <div class="accordion">
                     <button class="accordion-header" aria-expanded="false">
                         <span>🎨 键颜色（Key Color）</span>
@@ -1098,10 +1086,8 @@
                     </div>
                 </div>
                 <p>一个用于在 OBS 中直接 <strong>精修遮罩（Matte）</strong> 的 Alpha 通道工具。支持 Alpha 扩展、模糊和中值滤波，用于清理噪点边缘或填充抠像空洞。</p>
-                <div class="img-placeholder">
-                    <span class="icon-big">🖼️</span>
-                    AlphaTools 界面预览（请将图片放置于 <code>images/AlphaTools1.png</code>）
-                </div>
+                <!-- 恢复原始 img 标签和路径 -->
+                <img src="images/AlphaTools1.png" alt="AlphaTools 界面" class="di">
             </div>
 
             <div class="card">
@@ -1240,10 +1226,8 @@
                     </div>
                 </div>
                 <p>一款 <strong>边缘补光与定向重照明</strong> 工具，用于合成已抠像的视频素材。模拟光线从背景反弹到前景主体上，创造更加自然的融合效果。</p>
-                <div class="img-placeholder">
-                    <span class="icon-big">🖼️</span>
-                    Relightwrap 界面预览（请将图片放置于 <code>images/Halsu_Relightwrap_01.jpg</code>）
-                </div>
+                <!-- 恢复原始 img 标签和路径 -->
+                <img src="images/Halsu_Relightwrap_01.jpg" alt="Relightwrap 界面" class="di">
             </div>
 
             <div class="card">
@@ -1530,10 +1514,8 @@
                     </div>
                 </div>
                 <p>一套 <strong>镜头风格的后处理特效</strong>，包括模糊、辉光、色差和暗角效果。这些效果可以单独或组合使用，为画面增添电影感和专业质感。</p>
-                <div class="img-placeholder">
-                    <span class="icon-big">🖼️</span>
-                    LensEffects 界面预览（请将图片放置于 <code>images/Halsu_Lens_01.png</code>）
-                </div>
+                <!-- 恢复原始 img 标签和路径 -->
+                <img src="images/Halsu_Lens_01.png" alt="LensEffects 界面" class="di">
             </div>
 
             <div class="card">
@@ -1778,7 +1760,7 @@
     </footer>
 
     <!-- ============================================================ -->
-    <!-- JavaScript (交互逻辑不变，性能已优化) -->
+    <!-- JavaScript（交互逻辑，已优化折叠性能） -->
     <!-- ============================================================ -->
     <script>
         (function() {
@@ -1832,7 +1814,6 @@
 
                 header.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    // 切换当前 accordion 的 open 状态（独立展开）
                     accordion.classList.toggle('open');
                     const nowOpen = accordion.classList.contains('open');
                     header.setAttribute('aria-expanded', nowOpen ? 'true' : 'false');
@@ -1895,7 +1876,7 @@
                 panel.setAttribute('aria-labelledby', 'tab-' + tabName);
             });
 
-            console.log('✅ Halsu 教程交互已优化 (折叠动画性能提升)');
+            console.log('✅ Halsu 教程已更新：保留原始图片路径，折叠动画流畅优化');
         })();
     </script>
 
